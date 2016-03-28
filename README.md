@@ -2,7 +2,7 @@
 My standard C++ classes. This basically is just a collection of my most-used classes. Some classes may have better documentation in comments than the others do. This is simply because I don't plan on other people using this, and I already know what the things all do.
 
 ## Usage
-In order to use this, you just have to `#include "wrestd.h"`. If you don't want certain classes, comment out the `#define` corresponding to it in the top of `wrestd.h`. This will make it easier to add the file back later on if you want to - just uncomment the line.
+In order to use this, you just have to include [`wrestd.h`](Code/wrestd.h). If you don't want certain classes, comment out the `#define` corresponding to it in the top of `wrestd.h`. This will make it easier to add the file back later on if you want to - just uncomment the line.
 
 ## Classes:
 | Class | Header | Function |
