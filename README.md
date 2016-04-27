@@ -18,4 +18,4 @@ In order to use this, you just have to include [`wrestd.h`](Code/wrestd.h). If y
 ## Cross-platform
 This should be cross-platform. The IOManager class, for instance, will support printing in all kinds of colors on Windows, but should not do so on other platforms without raising errors. If I add any classes in the future that are only going to work on one platform, I will make sure that if you just use this code as-is on another platform, it will still work.
 
-**Note:** I have not tested cross-platform compatibility much. If something does not work, feel free to make a pull request with a fix and (obviously) create and issue - I'll get there when I can.
+**Note:** I have not tested cross-platform compatibility much. If something does not work, feel free to make a pull request with a fix and (obviously) create an issue - I'll get there when I can.
