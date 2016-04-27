@@ -9,6 +9,12 @@ In order to use this, you just have to include [`wrestd.h`](Code/wrestd.h). If y
 | --- | --- | --- |
 | IOManager | [`IOManager.h`](Code/IOManager.h) | Handles various IO-related things, both console and file IO. Adapts to multiple platforms. Supports colored console output on windows. |
 
+## Methods
+| Method | Function |
+| --- | --- |
+| `wrestd::substr_count()` | Counts the number of times a substring occurs in a string. Overlap by default. |
+| `wrestd::substr_replace()` | Replaces all occurrences of a substring with another string. No overlap by default. |
+
 ## Cross-platform
 This should be cross-platform. The IOManager class, for instance, will support printing in all kinds of colors on Windows, but should not do so on other platforms without raising errors. If I add any classes in the future that are only going to work on one platform, I will make sure that if you just use this code as-is on another platform, it will still work.
 
