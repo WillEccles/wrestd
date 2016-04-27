@@ -24,7 +24,7 @@ int DEFAULT;
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 #endif
 
-// set the color of the text in the console
+/* Set color of console text. */
 void IOManager::setColor(int colorCode) {
 #ifdef _WIN32
 	// this will only work on windows
@@ -32,6 +32,7 @@ void IOManager::setColor(int colorCode) {
 #endif
 }
 
+/* Clear the console. */
 void IOManager::clear() {
 #ifdef _WIN32
 	COORD topLeft = { 0, 0 };
@@ -50,19 +51,20 @@ void IOManager::clear() {
 #endif
 }
 
-// print a line in a certain color
+/* Print a ling in a certain color. */
 void IOManager::printlc(string line, int color) {
 	setColor(color);
 	cout << line << endl;
 	setColor(DEFAULT);
 }
 
-// print in a certain color, but not with a newline
+/* Print in a certain color, but no newline. */
 void IOManager::printc(string text, int color) {
 	setColor(color);
 	cout << text;
 }
 
+/* Wait for user to press enter. */
 void IOManager::wait() {
 	setColor(DARKWHITE);
 	cout << "\nPress ENTER to continue...";
@@ -71,6 +73,7 @@ void IOManager::wait() {
 	setColor(DEFAULT);
 }
 
+/* Wait for user to press enter, display custom message. */
 void IOManager::wait(string message) {
 	setColor(DARKWHITE);
 	cout << "\n" << message;
@@ -79,7 +82,7 @@ void IOManager::wait(string message) {
 	setColor(DEFAULT);
 }
 
-// return true or false based on whether or not the file exists
+/* Return true or false based on the existance of a file. */
 bool IOManager::fileExists(char filename[]) {
 	if (ifstream(filename))
 		return true;
@@ -91,7 +94,6 @@ bool IOManager::fileExists(char filename[]) {
 	}
 }
 
-// constructors
 IOManager::IOManager() {
 	DEFAULT = WHITE;
 }

@@ -25,6 +25,7 @@
 
 using namespace std;
 
+/* This class handles IO functions. */
 class IOManager
 {
 public:
