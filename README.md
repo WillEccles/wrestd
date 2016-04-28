@@ -1,4 +1,6 @@
 # wrestd
+**NOTE: This is out of date and I need to update this, but do not have time to at the moment.**
+
 My standard C++ classes. This basically is just a collection of my most-used classes. Some classes may have better documentation in comments than the others do. This is simply because I don't plan on other people using this, and I already know what the things all do.
 
 ## Usage
