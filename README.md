@@ -38,8 +38,8 @@ int main() {
 ## Methods
 | Method | Function |
 | --- | --- |
-| `wrestd::substr_count()` | Counts the number of times a substring occurs in a string. Overlap by default. |
-| `wrestd::substr_replace()` | Replaces all occurrences of a substring with another string. No overlap by default. |
+| [`wrestd::substr_count()`](Code/wrestd.cpp#L5) | Counts the number of times a substring occurs in a string. Overlap by default. |
+| [`wrestd::substr_replace()`](Code/wrestd.cpp#L35) | Replaces all occurrences of a substring with another string. No overlap by default. |
 
 ## Cross-platform
 This should be cross-platform, at least as much as possible. For example, in `wrestd::iofuncs::setcolor()`, it will only do that if on Windows, and if you aren't, it will simply print it in normal colors.
