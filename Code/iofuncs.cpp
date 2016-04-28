@@ -1,4 +1,8 @@
-#include "IOManager.h"
+/*
+TODO: ADD SUPPORT FOR ANSI COLOR CODES ON NON-WINDOWS PLATFORMS https://en.wikipedia.org/wiki/ANSI_escape_code
+*/
+
+#include "wrestd.h"
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -25,7 +29,7 @@ HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 #endif
 
 /* Set color of console text. */
-void IOManager::setColor(int colorCode) {
+void wrestd::iofuncs::setColor(int colorCode) {
 #ifdef _WIN32
 	// this will only work on windows
 	SetConsoleTextAttribute(console, colorCode);
@@ -33,7 +37,7 @@ void IOManager::setColor(int colorCode) {
 }
 
 /* Clear the console. */
-void IOManager::clear() {
+void wrestd::iofuncs::clear() {
 #ifdef _WIN32
 	COORD topLeft = { 0, 0 };
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -52,20 +56,20 @@ void IOManager::clear() {
 }
 
 /* Print a ling in a certain color. */
-void IOManager::printlc(string line, int color) {
+void wrestd::iofuncs::printlc(string line, int color) {
 	setColor(color);
 	cout << line << endl;
 	setColor(DEFAULT);
 }
 
 /* Print in a certain color, but no newline. */
-void IOManager::printc(string text, int color) {
+void wrestd::iofuncs::printc(string text, int color) {
 	setColor(color);
 	cout << text;
 }
 
 /* Wait for user to press enter. */
-void IOManager::wait() {
+void wrestd::iofuncs::wait() {
 	setColor(DARKWHITE);
 	cout << "\nPress ENTER to continue...";
 	// this is why i had to undef max, because windows defines it in some header file somewhere
@@ -74,7 +78,7 @@ void IOManager::wait() {
 }
 
 /* Wait for user to press enter, display custom message. */
-void IOManager::wait(string message) {
+void wrestd::iofuncs::wait(string message) {
 	setColor(DARKWHITE);
 	cout << "\n" << message;
 	// this is why i had to undef max, because windows defines it in some header file somewhere
@@ -83,7 +87,7 @@ void IOManager::wait(string message) {
 }
 
 /* Return true or false based on the existance of a file. */
-bool IOManager::fileExists(char filename[]) {
+bool wrestd::iofuncs::fileExists(char filename[]) {
 	if (ifstream(filename))
 		return true;
 	
@@ -92,12 +96,4 @@ bool IOManager::fileExists(char filename[]) {
 		file.close();
 		return false;
 	}
-}
-
-IOManager::IOManager() {
-	DEFAULT = WHITE;
-}
-
-IOManager::IOManager(int defaultColor) {
-	DEFAULT = defaultColor;
 }

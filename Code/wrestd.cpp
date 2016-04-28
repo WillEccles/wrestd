@@ -16,7 +16,8 @@ int wrestd::substr_count(std::string str, std::string substr, bool overlap=true)
 	return count;
 }
 
-/* Same as substr_replace, but acts directly on 'str'. */
+/* Same as substr_replace, but acts directly on 'str'. 
+Not available publicly, since it would be more confusing and I can just use the replace option of substr_replace. */
 void substr_replace_volatile(std::string &str, std::string substr, std::string replacement, bool overlap = false) {
 	if (str.find(substr) == str.npos) return;
 
