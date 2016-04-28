@@ -1,15 +1,38 @@
 # wrestd
 **NOTE: This is out of date and I need to update this, but do not have time to at the moment.**
 
-My standard C++ classes. This basically is just a collection of my most-used classes. Some classes may have better documentation in comments than the others do. This is simply because I don't plan on other people using this, and I already know what the things all do.
+My standard C++ library. This basically is just a collection of my most-used classes/methods. Some classes may have better documentation in comments than the others do. This is simply because I don't plan on other people using this, and I already know what the things all do.
 
 ## Usage
-In order to use this, you just have to include [`wrestd.h`](Code/wrestd.h). If you don't want a certain class, comment out the `#define` corresponding to it in the top of `wrestd.h`. This will make it easier to add the file back later on if you want to - just uncomment the line.
+In order to use this, you just have to include [`wrestd.h`](Code/wrestd.h).
 
-## Classes:
-| Class | Header | Function |
+After that, you can use things like this:
+
+```c++
+#include "wrestd.h"
+
+using namespace wrestd;
+using namespace wrestd::iofuncs;
+using wrestd::iofuncs::clear();
+```
+
+Of course, you can always just use the fully qualified names, which does still require the inclusion of `wrestd.h`, obviously.
+
+```c++
+#include "wrestd.h"
+
+int main() {
+	wrestd::iofuncs::clear();
+	std::cout << "'ha' is in 'hahaha' " << wrestd::substr_count("hahaha", "ha") << " times." << std::endl;
+	
+	return 0;
+}
+```
+
+## Namespaces:
+| Namespace | Definitions | Function |
 | --- | --- | --- |
-| IOManager | [`IOManager.h`](Code/IOManager.h) | Handles various IO-related things, both console and file IO. Adapts to multiple platforms. Supports colored console output on windows. |
+| [`wrestd::iofuncs`](Code/wrestd.h#L49) | [`iofuncs.cpp`](Code/iofuncs.cpp) | Handles various IO-related things, both console and file IO. Adapts to multiple platforms. Supports colored console output on windows. |
 
 ## Methods
 | Method | Function |
@@ -18,6 +41,6 @@ In order to use this, you just have to include [`wrestd.h`](Code/wrestd.h). If y
 | `wrestd::substr_replace()` | Replaces all occurrences of a substring with another string. No overlap by default. |
 
 ## Cross-platform
-This should be cross-platform. The IOManager class, for instance, will support printing in all kinds of colors on Windows, but should not do so on other platforms without raising errors. If I add any classes in the future that are only going to work on one platform, I will make sure that if you just use this code as-is on another platform, it will still work.
+This should be cross-platform, at least as much as possible. For example, in `wrestd::iofuncs::setcolor()`, it will only do that if on Windows, and if you aren't, it will simply print it in normal colors.
 
 **Note:** I have not tested cross-platform compatibility much. If something does not work, feel free to make a pull request with a fix and (obviously) create an issue - I'll get there when I can.

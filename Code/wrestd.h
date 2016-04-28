@@ -7,33 +7,21 @@ This software is licensed under the Apache license. See LICENSE file to learn mo
 ----------------------------------------------*/
 
 /*----------DESCRIPTION-----------------------
-This is a collection of my frequently used classes and methods. They can be selected below.
+This is a collection of my frequently used classes and methods.
 ----------------------------------------------*/
-
-/*----------INSTRUCTIONS----------------------
-Comment out the classes you don't want - I recommend this instead of removing the #include for the file.
-It's easier to drop the file back in if you want to later on.
-----------------------------------------------*/
-
-#define IOMANAGER
 
 /* Common imports, or things required for the classes to work. */
 #include <stdio.h>
 #include <string>
 
-// include classes, as selected above
-#ifdef IOMANAGER
-#include "IOManager.h"
-#endif
-
-// used to detect things later on
+// used to detect things later on, IIRC. Just copied it from the old IOManager.h file, pretty sure it's used somewhere.
 #ifdef _WIN32
 #define ISWINDOWS 1
 #else
 #define ISWINDOWS 0
 #endif
 
-// define some colors, these are for use with the IOManager class.
+// define some colors, these are for use with the iofuncs methods.
 #define BLACK 0
 #define DARKBLUE 1
 #define DARKGREEN 2

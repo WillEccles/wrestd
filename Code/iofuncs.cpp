@@ -21,7 +21,11 @@ TODO: ADD SUPPORT FOR ANSI COLOR CODES ON NON-WINDOWS PLATFORMS https://en.wikip
 
 using namespace std;
 
-int DEFAULT;
+int DEFAULT = WHITE;
+
+// store colors for when using *nix
+// WIP obviously
+//char* nixcolors[16] = {};
 
 #ifdef _WIN32
 // this will let me access the console
@@ -33,6 +37,8 @@ void wrestd::iofuncs::setColor(int colorCode) {
 #ifdef _WIN32
 	// this will only work on windows
 	SetConsoleTextAttribute(console, colorCode);
+#else
+	// here I will use the nixcolors[] above
 #endif
 }
 
