@@ -13,6 +13,8 @@ This is a collection of my frequently used classes and methods.
 /* Common imports, or things required for the classes to work. */
 #include <stdio.h>
 #include <string>
+#include <thread>
+#include <ctime>
 
 // used to detect things later on, IIRC. Just copied it from the old IOManager.h file, pretty sure it's used somewhere.
 #ifdef _WIN32
@@ -55,5 +57,11 @@ namespace wrestd {
 		void setColor(int);
 		int DEFAULT;
 		bool fileExists(char[]);
+	};
+	
+	/* Handles threading-related functions, including execution times and such. */
+	namespace threading {
+		template<class _Fn, class... _Args, class = typename enable_if<!is_same<typename decay<_Fn>::type, thread>::value>::type> 
+			clock_t timeToDo(_Fn&& fn, _Args&&... args);
 	};
 }
