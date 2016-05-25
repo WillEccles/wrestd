@@ -32,7 +32,7 @@ int main() {
 ## Namespaces:
 | Namespace | Definitions | Function |
 | --- | --- | --- |
-| `wrestd` | `wrestd.cpp` | Constains general methods and the rest of the namespaces in this list. |
+| `wrestd` | `wrestd.cpp` | Contains general methods and the rest of the namespaces in this list. |
 | `wrestd::iofuncs` | `iofuncs.cpp` | Contains methods to handle various IO-related things, both console and file IO. Adapts to multiple platforms. Supports colored console output on Windows. |
 
 ## Methods
