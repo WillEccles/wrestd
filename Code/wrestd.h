@@ -45,6 +45,8 @@ This is a collection of my frequently used classes and methods.
 namespace wrestd {
 	int substr_count(std::string, std::string, bool);
 	std::string substr_replace(std::string&, std::string, std::string, bool, bool);
+	std::string to_lower(std::string);
+	std::string to_upper(std::string);
 	
 	/* Handles IO functions, such as console printing, colors, waiting, etc. and file existance checks.
 	This is a class now, but will in the future be a namespace within the namespace. */
@@ -57,6 +59,7 @@ namespace wrestd {
 		void setColor(int);
 		int DEFAULT;
 		bool fileExists(char[]);
+		
 	};
 	
 	/* Handles threading-related functions, including execution times and such. */

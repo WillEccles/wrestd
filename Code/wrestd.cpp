@@ -53,3 +53,25 @@ std::string wrestd::substr_replace(std::string &str, std::string substr, std::st
 
 	return _str;
 }
+
+/* Convert a std::string to all lowercase. (ASCII-only obviously) */
+std::string wrestd::to_lower(std::string str) {
+	std::string _str = str;
+	
+	for (int i = 0; i < _str.length(); i++)
+		if (_str[i] >= 0x41/*A*/ && _str[i] <= 0x5A/*Z*/)
+			_str[i] = (char)(_str[i] + 0x20);
+			
+	return _str;
+}
+
+/* Convert a std::string to all uppercase. (ASCII-only obviously) */
+std::string wrestd::to_upper(str::string str) {
+	std::string _str = str;
+	
+	for (int i = 0; i < _str.length(); i++)
+		if (_str[i] >= 0x61/*a*/ && _str[i] <= 0x7A/*z*/)
+			_str[i] = (char)(_str[i] - 0x20);
+			
+	return _str;
+}

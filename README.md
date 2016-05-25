@@ -32,14 +32,16 @@ int main() {
 ## Namespaces:
 | Namespace | Definitions | Function |
 | --- | --- | --- |
-| [`wrestd`](Code/wrestd.h#L43) | [`wrestd.cpp`](Code/wrestd.cpp) | Constains general methods and the rest of the namespaces in this list. |
-| [`wrestd::iofuncs`](Code/wrestd.h#L49) | [`iofuncs.cpp`](Code/iofuncs.cpp) | Contains methods to handle various IO-related things, both console and file IO. Adapts to multiple platforms. Supports colored console output on Windows. |
+| `wrestd` | `wrestd.cpp` | Constains general methods and the rest of the namespaces in this list. |
+| `wrestd::iofuncs` | `iofuncs.cpp` | Contains methods to handle various IO-related things, both console and file IO. Adapts to multiple platforms. Supports colored console output on Windows. |
 
 ## Methods
 | Method | Function |
 | --- | --- |
-| [`wrestd::substr_count()`](Code/wrestd.cpp#L5) | Counts the number of times a substring occurs in a string. Overlap by default. |
-| [`wrestd::substr_replace()`](Code/wrestd.cpp#L35) | Replaces all occurrences of a substring with another string. No overlap by default. |
+| `wrestd::substr_count()` | Counts the number of times a substring occurs in a string. Overlap by default. |
+| `wrestd::substr_replace()` | Replaces all occurrences of a substring with another string. No overlap by default. |
+| `wrestd::to_lower()` | Returns the string passed to it, converted to all lowercase characters. |
+| `wrestd::to_upper()` | Returns the string passed to it, converted to all uppercase characters. |
 
 ## Cross-platform
 This should be cross-platform, at least as much as possible. For example, in `wrestd::iofuncs::setcolor()`, it will only do that if on Windows, and if you aren't, it will simply print it in normal colors.
