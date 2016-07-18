@@ -14,7 +14,7 @@ This is a collection of my frequently used classes and methods.
 #include <stdio.h>
 #include <string>
 #include <thread>
-#include <ctime>
+#include <time.h>
 
 // used to detect things later on, IIRC. Just copied it from the old IOManager.h file, pretty sure it's used somewhere.
 #ifdef _WIN32
@@ -23,48 +23,51 @@ This is a collection of my frequently used classes and methods.
 #define ISWINDOWS 0
 #endif
 
-// define some colors, these are for use with the iofuncs methods.
-#define BLACK 0
-#define DARKBLUE 1
-#define DARKGREEN 2
-#define DARKTEAL 3
-#define DARKRED 4
-#define DARKMAGENTA 5
-#define DARKYELLOW 6
-#define DARKWHITE 7
-#define DARKGREY 8
-#define BLUE 9
-#define GREEN 10
-#define TEAL 11
-#define RED 12
-#define MAGENTA 13
-#define YELLOW 14
-#define WHITE 15
-
 // My namespace, which contains helpful methods and such.
 namespace wrestd {
-	int substr_count(std::string, std::string, bool);
-	std::string substr_replace(std::string&, std::string, std::string, bool, bool);
-	std::string to_lower(std::string);
-	std::string to_upper(std::string);
+	/* Methods that work with strings. */
+	namespace strings {
+		int substr_count(std::string, std::string, bool);
+		std::string substr_replace(std::string&, std::string, std::string, bool, bool);
+		std::string to_lower(std::string);
+		std::string to_upper(std::string);
+	}
 	
-	/* Handles IO functions, such as console printing, colors, waiting, etc. and file existance checks.
-	This is a class now, but will in the future be a namespace within the namespace. */
-	namespace iofuncs {
-		void printc(std::string, int);
-		void printlc(std::string, int);
+	/* Handles IO functions, such as console printing, colors, waiting, etc. and file existance checks. */
+	namespace io {
+		enum color_t {
+			BLACK = 0,
+			DARKBLUE = 1,
+			DARKGREEN = 2,
+			DARKTEAL = 3,
+			DARKRED = 4,
+			DARKMAGENTA = 5,
+			DARKYELLOW = 6,
+			DARKWHITE = 7,
+			DARKGREY = 8,
+			BLUE = 9,
+			GREEN = 10,
+			TEAL = 11,
+			RED = 12,
+			MAGENTA = 13,
+			YELLOW = 14,
+			WHITE = 15,
+			DEFAULT = WHITE
+		};
+		void printc(std::string, color_t);
+		void printlc(std::string, color_t);
 		void clear();
 		void wait();
 		void wait(std::string);
-		void setColor(int);
+		void setColor(color_t);
 		int DEFAULT;
 		bool fileExists(char[]);
-		
 	};
 	
-	/* Handles threading-related functions, including execution times and such. */
+	/* Handles threading-related functions, including execution times and such. 
+	At this time, executionTime does not work.*/
 	namespace threading {
-		template<class _Fn, class... _Args, class = typename enable_if<!is_same<typename decay<_Fn>::type, thread>::value>::type> 
-			clock_t timeToDo(_Fn&& fn, _Args&&... args);
+		template<class _Fn, class... _Args, class RType> 
+			RType executionTime(_Fn&& fn, _Args&&... args);
 	};
 }
