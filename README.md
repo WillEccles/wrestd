@@ -22,7 +22,7 @@ Of course, you can always just use the fully qualified names, which does still r
 
 int main() {
 	wrestd::io::clear();
-	std::cout << "'ha' is in 'hahaha' " << wrestd::substr_count("hahaha", "ha") << " times." << std::endl;
+	std::cout << "'ha' is in 'hahaha' " << wrestd::strings::substr_count("hahaha", "ha") << " times." << std::endl;
 	
 	return 0;
 }
