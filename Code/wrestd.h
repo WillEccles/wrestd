@@ -64,10 +64,17 @@ namespace wrestd {
 		bool fileExists(char[]);
 	};
 	
-	/* Handles threading-related functions, including execution times and such. 
-	At this time, executionTime does not work.*/
+	/* Handles threading-related functions, including execution times and such. */
 	namespace threading {
-		template<class _Fn, class... _Args, class RType> 
-			RType executionTime(_Fn&& fn, _Args&&... args);
+		template<class RType = double,
+			class _Fn,
+			class... _Args>
+		RType executionTime(_Fn&& fn, _Args&&... args) {
+			clock_t start = clock();
+			fn(args...);
+			// CLOCKS_PER_SEC = accuracy of clock(), i.e. 1/1000s on windows, 1/1000000s on Linux, etc.
+			double difference = (double)(clock() - start) / (double)CLOCKS_PER_SEC;
+			return (RType)difference;
+		}
 	};
 }

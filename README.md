@@ -33,7 +33,7 @@ int main() {
 | --- | --- | --- |
 | `wrestd::io` | `io.cpp` | Contains methods to handle various IO-related things, both console and file IO. Adapts to multiple platforms. Supports colored console output on Windows. |
 | `wrestd::strings` | `strings.cpp` | Contains methods that work with strings. |
-| `wrestd::threading` | `threading.cpp` | Contains thread-related methods. |
+| `wrestd::threading` | N/A for now | Contains thread-related methods. |
 
 ## Cross-platform
 This should be cross-platform, at least as much as possible. For example, in `wrestd::io::setcolor()`, it will only do that if on Windows, and if you aren't, it will simply print it in normal colors.
