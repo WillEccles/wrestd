@@ -62,7 +62,6 @@ namespace wrestd {
 		void wait();
 		void wait(std::string);
 		void setColor(color_t);
-		int DEFAULT;
 		bool fileExists(char[]);
 	};
 	
@@ -74,9 +73,9 @@ namespace wrestd {
 		RType executionTime(_Fn&& fn, _Args&&... args) {
 			high_resolution_clock::time_point t1 = high_resolution_clock::now();
 			fn(args...);
-			high_resoltuion_clock::time_point t2 = high_resolution_clock::now();
-			duration<double> timespan = duration_cast<duration<double>>(t2-t1);
-			return (RType)difference;
+			high_resolution_clock::time_point t2 = high_resolution_clock::now();
+			duration<RType> timespan = duration_cast<duration<RType>>(t2-t1);
+			return (RType)timespan.count() * (RType)seconds::period::num/(RType)seconds::period::den;
 		}
 	};
 }
