@@ -14,7 +14,7 @@ This is a collection of my frequently used classes and methods.
 #include <stdio.h>
 #include <string>
 #include <thread>
-#include <time.h>
+#include <chrono>
 
 // used to detect things later on, IIRC. Just copied it from the old IOManager.h file, pretty sure it's used somewhere.
 #ifdef _WIN32
@@ -22,6 +22,8 @@ This is a collection of my frequently used classes and methods.
 #else
 #define ISWINDOWS 0
 #endif
+
+using namespace std::chrono;
 
 // My namespace, which contains helpful methods and such.
 namespace wrestd {
@@ -70,10 +72,10 @@ namespace wrestd {
 			class _Fn,
 			class... _Args>
 		RType executionTime(_Fn&& fn, _Args&&... args) {
-			clock_t start = clock();
+			high_resolution_clock::time_point t1 = high_resolution_clock::now();
 			fn(args...);
-			// CLOCKS_PER_SEC = accuracy of clock(), i.e. 1/1000s on windows, 1/1000000s on Linux, etc.
-			double difference = (double)(clock() - start) / (double)CLOCKS_PER_SEC;
+			high_resoltuion_clock::time_point t2 = high_resolution_clock::now();
+			duration<double> timespan = duration_cast<duration<double>>(t2-t1);
 			return (RType)difference;
 		}
 	};
