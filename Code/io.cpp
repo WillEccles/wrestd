@@ -1,7 +1,3 @@
-/*
-TODO: ADD SUPPORT FOR ANSI COLOR CODES ON NON-WINDOWS PLATFORMS https://en.wikipedia.org/wiki/ANSI_escape_code
-*/
-
 #include "wrestd.h"
 
 #ifdef _WIN32
@@ -10,6 +6,7 @@ TODO: ADD SUPPORT FOR ANSI COLOR CODES ON NON-WINDOWS PLATFORMS https://en.wikip
 
 #include <iostream>
 #include <fstream>
+#include <cstdio>
 
 // this is here because on VS2010 I have to change how this works to make it work properly
 #define TO_STRING(i) (to_string(i))
@@ -20,10 +17,19 @@ TODO: ADD SUPPORT FOR ANSI COLOR CODES ON NON-WINDOWS PLATFORMS https://en.wikip
 #endif
 
 using namespace std;
+using namespace wrestd::io;
 
-// store colors for when using *nix
-// WIP obviously
-//char* nixcolors[16] = {};
+const char* nixcolorcodes[16] = { "30", "34", "32", "36", "31", "35", "33", "37", "30;1", "34;1", "32;1", "36;1", "31;1", "35;1", "33;1", "37;1" };
+
+// return the ANSI color code corresponding to the color_t specified
+char* nixcolor(color_t color) {
+	char *ncolor = (char *)malloc(15); // 15 is a wee bit large but it should be enough for all colors required
+	if (color != DEFAULT)
+		sprintf(ncolor, "\033[%sm", nixcolorcodes[color]);
+	else // the person wants to set it to DEFAULT, which should be ESC[m
+		sprintf(ncolor, "\033[m");
+	return ncolor;
+}
 
 #ifdef _WIN32
 // this will let me access the console
@@ -36,7 +42,8 @@ void wrestd::io::setColor(color_t colorCode) {
 	// this will only work on windows
 	SetConsoleTextAttribute(console, colorCode);
 #else
-	// here I will use the nixcolors[] above
+	// here I will use the nixcolors above
+	cout << nixcolor(colorCode);
 #endif
 }
 
@@ -54,12 +61,12 @@ void wrestd::io::clear() {
 	SetConsoleCursorPosition(console, topLeft);
 #else
 	// this is the non-windows way of doing this
-	// should work, though I have not yet had a chance to test this.
-	cout << "\x1B[2J\x1B[H";
+	// J clears the display, 2 means to clear the whole thing, and then cursor gets put at the top left
+	cout << "\033[2J";
 #endif
 }
 
-/* Print a ling in a certain color. */
+/* Print a line in a certain color. */
 void wrestd::io::printlc(string line, color_t color) {
 	setColor(color);
 	cout << line << endl;
@@ -70,20 +77,21 @@ void wrestd::io::printlc(string line, color_t color) {
 void wrestd::io::printc(string text, color_t color) {
 	setColor(color);
 	cout << text;
+	setColor(DEFAULT);
 }
 
-/* Wait for user to press enter. */
-void wrestd::io::wait() {
-	setColor(DARKWHITE);
+/* Wait for user to press enter, optionally printing it in a specific color. */
+void wrestd::io::wait(color_t messagecolor = DEFAULT) {
+	setColor(messagecolor);
 	cout << "\nPress ENTER to continue...";
 	// this is why i had to undef max, because windows defines it in some header file somewhere
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	setColor(DEFAULT);
 }
 
-/* Wait for user to press enter, display custom message. */
-void wrestd::io::wait(string message) {
-	setColor(DARKWHITE);
+/* Wait for user to press enter, display custom message, optionally specifying a color for the message. */
+void wrestd::io::wait(string message, color_t messagecolor = DEFAULT) {
+	setColor(messagecolor);
 	cout << "\n" << message;
 	// this is why i had to undef max, because windows defines it in some header file somewhere
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

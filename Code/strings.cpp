@@ -66,7 +66,7 @@ std::string wrestd::strings::to_lower(std::string str) {
 }
 
 /* Convert a std::string to all uppercase. (ASCII-only obviously) */
-std::string wrestd::strings::to_upper(str::string str) {
+std::string wrestd::strings::to_upper(std::string str) {
 	std::string _str = str;
 	
 	for (int i = 0; i < _str.length(); i++)

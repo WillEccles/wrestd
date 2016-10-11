@@ -41,7 +41,7 @@ namespace wrestd {
 			BLACK = 0,
 			DARKBLUE = 1,
 			DARKGREEN = 2,
-			DARKTEAL = 3,
+			DARKCYAN = 3,
 			DARKRED = 4,
 			DARKMAGENTA = 5,
 			DARKYELLOW = 6,
@@ -49,7 +49,7 @@ namespace wrestd {
 			DARKGREY = 8,
 			BLUE = 9,
 			GREEN = 10,
-			TEAL = 11,
+			CYAN = 11,
 			RED = 12,
 			MAGENTA = 13,
 			YELLOW = 14,
@@ -59,8 +59,8 @@ namespace wrestd {
 		void printc(std::string, color_t);
 		void printlc(std::string, color_t);
 		void clear();
-		void wait();
-		void wait(std::string);
+		void wait(color_t);
+		void wait(std::string, color_t);
 		void setColor(color_t);
 		bool fileExists(char[]);
 	};
