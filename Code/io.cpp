@@ -54,7 +54,13 @@ HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 void wrestd::io::setColor(color_t colorCode, color_t bgColorCode = NULL) {
 #ifdef _WIN32
 	// this will only work on windows
-	SetConsoleTextAttribute(console, colorCode);
+	// if there is no bgColorCode specified, just do this
+	if (bgColorCode == NULL)
+		SetConsoleTextAttribute(console, colorCode);
+	else {
+		WORD color = ((bgColorCode & 0x0F) << 4) + (colorCode & 0x0F);
+		SetConsoleTextAttribute(console, color);
+	}
 #else
 	// here I will use the nixcolors above
 	cout << nixcolor(colorCode);
