@@ -8,6 +8,13 @@
 #include <fstream>
 #include <cstdio>
 
+// to get properties of the terminal on BSD, etc.
+#ifndef _WIN32
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include <unistd.h>
+#endif
+
 // this is here because on VS2010 I have to change how this works to make it work properly
 #define TO_STRING(i) (to_string(i))
 
@@ -137,4 +144,46 @@ bool wrestd::io::fileExists(char filename[]) {
 	}
 
 	return false; // just in case both of the above fail to work. assume no file.
+}
+
+/* Retrieve the width of the terminal window in columns.
+ * Returns -1 if unable to retrieve. */
+int wrestd::io::termWidth() {
+#ifndef _WIN32
+	struct winsize ws;
+	int fd;
+
+	// open terminal
+	fd = open("/dev/tty", O_RDWR);
+	if (fd < 0)
+		return -1;
+
+	// get the size
+	if (ioctl(fd, TIOCGWINSZ, &ws) < 0)
+		return -1;
+
+	// otherwise return the width
+	return ws.ws_col;
+#endif
+}
+
+/* Retrieve the height of the terminal window in rows.
+ * Returns -1 if error. */
+int wrestd::io::termHeight() {
+#ifndef _WIN32
+	struct winsize ws;
+	int fd;
+
+	// open terminal
+	fd = open("/dev/tty", O_RDWR);
+	if (fd < 0)
+		return -1;
+
+	// get size
+	if (ioctl(fd, TIOCGWINSZ, &ws) < 0)
+		return -1;
+
+	// return height
+	return ws.ws_row;
+#endif
 }

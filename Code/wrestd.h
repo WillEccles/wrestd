@@ -63,6 +63,8 @@ namespace wrestd {
 		void wait(std::string, color_t, color_t);
 		void setColor(color_t, color_t);
 		bool fileExists(char[]);
+		int termHeight();
+		int termWidth();
 	};
 	
 	/* Handles threading-related functions, including execution times and such. */
