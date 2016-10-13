@@ -96,7 +96,7 @@ void wrestd::io::clear() {
 #else
 	// this is the non-windows way of doing this
 	// J clears the display, 2 means to clear the whole thing, and then cursor gets put at the top left
-	printf("\033[1;1H;2J");
+	printf("\33c\033[2J");
 #endif
 }
 
