@@ -54,7 +54,8 @@ namespace wrestd {
 			MAGENTA = 13,
 			YELLOW = 14,
 			WHITE = 15,
-			DEFAULT = WHITE
+			DEFAULT = WHITE,
+			NONE = -1
 		};
 		void printc(std::string, color_t, color_t);
 		void printlc(std::string, color_t, color_t);

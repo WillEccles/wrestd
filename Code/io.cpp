@@ -58,11 +58,11 @@ HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 #endif
 
 /* Set color of console text. Can specify background color if the system supports it. */
-void wrestd::io::setColor(color_t colorCode, color_t bgColorCode = NULL) {
+void wrestd::io::setColor(color_t colorCode, color_t bgColorCode = NONE) {
 #ifdef _WIN32
 	// this will only work on windows
 	// if there is no bgColorCode specified, just do this
-	if (bgColorCode == NULL)
+	if (bgColorCode == NONE)
 		SetConsoleTextAttribute(console, colorCode);
 	else {
 		WORD color = ((bgColorCode & 0x0F) << 4) + (colorCode & 0x0F);
@@ -72,7 +72,7 @@ void wrestd::io::setColor(color_t colorCode, color_t bgColorCode = NULL) {
 	// here I will use the nixcolors above
 	cout << nixcolor(colorCode);
 	// if bgColorCode is specified, change the background to that too
-	if (bgColorCode != NULL)
+	if (bgColorCode != NONE)
 		cout << nixbgcolor(bgColorCode);
 #endif
 }
@@ -98,7 +98,7 @@ void wrestd::io::clear() {
 
 /* Print a line in a certain color. 
  * Optionally, specify a background color for systems that support it. */
-void wrestd::io::printlc(string line, color_t color, color_t bgColorCode = NULL) {
+void wrestd::io::printlc(string line, color_t color, color_t bgColorCode = NONE) {
 	setColor(color, bgColorCode);
 	cout << line << endl;
 	setColor(DEFAULT, DEFAULT);
@@ -106,7 +106,7 @@ void wrestd::io::printlc(string line, color_t color, color_t bgColorCode = NULL)
 
 /* Print in a certain color, but no newline.
  * Optionally, specify a background color for systems that support it. */
-void wrestd::io::printc(string text, color_t color, color_t bgColorCode = NULL) {
+void wrestd::io::printc(string text, color_t color, color_t bgColorCode = NONE) {
 	setColor(color, bgColorCode);
 	cout << text;
 	setColor(DEFAULT, DEFAULT);
@@ -114,7 +114,7 @@ void wrestd::io::printc(string text, color_t color, color_t bgColorCode = NULL) 
 
 /* Wait for user to press enter, optionally printing it in a specific color. 
  * Also optionally add a background color shown on systems which support it. */
-void wrestd::io::wait(color_t messagecolor = DEFAULT, color_t bgColor = NULL) {
+void wrestd::io::wait(color_t messagecolor = DEFAULT, color_t bgColor = NONE) {
 	setColor(messagecolor, bgColor);
 	cout << "\nPress ENTER to continue...";
 	// this is why i had to undef max, because windows defines it in some header file somewhere
@@ -124,7 +124,7 @@ void wrestd::io::wait(color_t messagecolor = DEFAULT, color_t bgColor = NULL) {
 
 /* Wait for user to press enter, display custom message, optionally specifying a color for the message. 
  * Optionally specify background color for supported systems. */
-void wrestd::io::wait(string message, color_t messagecolor = DEFAULT, color_t bgColorCode = NULL) {
+void wrestd::io::wait(string message, color_t messagecolor = DEFAULT, color_t bgColorCode = NONE) {
 	setColor(messagecolor, bgColorCode);
 	cout << "\n" << message;
 	// this is why i had to undef max, because windows defines it in some header file somewhere
