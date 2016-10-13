@@ -28,28 +28,20 @@ using namespace wrestd::io;
 
 // the following color code arrays are in the order of color_t color codes for reasy switching: color_t::black = 0, so nixcolorcodes[0] = 30, aka black
 // foreground color codes for ANSI escapes
-const char* nixcolorcodes[16] = { "30", "34", "32", "36", "31", "35", "33", "37", "90", "94", "92", "96", "91", "95", "93", "97" };
+const int nixcolorcodes[16] = { 30, 34, 32, 36, 31, 35, 33, 37, 90, 94, 92, 96, 91, 95, 93, 97 };
 // background color codes for ANSI escapes
-const char* nixbgcolorcodes[16] = { "40", "44", "42", "46", "41", "45", "43", "47", "100", "104", "102", "106", "101", "105", "103", "107" };
+const int nixbgcolorcodes[16] = { 40, 44, 42, 46, 41, 45, 43, 47, 100, 104, 102, 106, 101, 105, 103, 107 };
 
-// return the ANSI color code corresponding to the color_t specified
-char* nixcolor(color_t color) {
-	char *ncolor = (char *)malloc(15); // 15 is a wee bit large but it should be enough for all colors required
-	if (color != DEFAULT && color != NONE)
-		sprintf(ncolor, "\033[%sm", nixcolorcodes[color]);
-	else // the person wants to set it to DEFAULT, which should be ESC[m
-		sprintf(ncolor, "\033[39m");
-	return ncolor;
+int getFGColor(int color) {
+	if (color == DEFAULT)
+		return NOFG;
+	else return nixcolorcodes[color];
 }
 
-// return the ANSI code for the background color_t specified
-char* nixbgcolor(color_t color) {
-	char *ncolor = (char *)malloc(15);
-	if (color != DEFAULT && color != NONE)
-		sprintf(ncolor, "\033[%sm", nixbgcolorcodes[color]);
-	else
-		sprintf(ncolor, "\033[49m");
-	return ncolor;
+int getBGColor(int color) {
+	if (color == DEFAULT)
+		return NOBG;
+	else return nixbgcolorcodes[color];
 }
 
 #ifdef _WIN32
@@ -57,12 +49,17 @@ char* nixbgcolor(color_t color) {
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 #endif
 
-/* Set color of console text. Can specify background color if the system supports it. */
+/* Set color of console text. Can specify background color if the system supports it. 
+ *
+ * FOR BEST RESULTS ON NON-WINDOWS:
+ * DO NOT USE THIS FOR BACKGROUND COLOR
+ * INSTEAD, SPECIFY ONE FOR PRINTLC OR PRINTC
+ * */
 void wrestd::io::setColor(color_t colorCode, color_t bgColorCode) {
 #ifdef _WIN32
 	// this will only work on windows
 	// if there is no bgColorCode specified, just do this
-	if (bgColorCode == NONE)
+	if (bgColorCode == NOBG)
 		SetConsoleTextAttribute(console, colorCode);
 	else {
 		WORD color = ((bgColorCode & 0x0F) << 4) + (colorCode & 0x0F);
@@ -70,8 +67,9 @@ void wrestd::io::setColor(color_t colorCode, color_t bgColorCode) {
 	}
 #else
 	// here I will use the nixcolors above
-	cout << nixcolor(colorCode);
-	cout << nixbgcolor(bgColorCode);
+	int fgcolor = getFGColor(colorCode);
+	int bgcolor = getBGColor(bgColorCode);
+	printf("\033[%d;%dm", fgcolor, bgcolor);
 #endif
 }
 
@@ -98,44 +96,64 @@ void wrestd::io::clear() {
 #else
 	// this is the non-windows way of doing this
 	// J clears the display, 2 means to clear the whole thing, and then cursor gets put at the top left
-	cout << "\033[2J";
+	printf("\033[2Jm");
 #endif
 }
 
 /* Print a line in a certain color. 
  * Optionally, specify a background color for systems that support it. */
 void wrestd::io::printlc(string line, color_t color, color_t bgColorCode ) {
+#ifdef _WIN32
 	setColor(color, bgColorCode);
 	cout << line << endl;
 	setColor(DEFAULT, DEFAULT);
+#else
+	printf("\033[%d;%dm%s\033[m\n", getFGColor(color), getBGColor(bgColorCode), line.c_str());
+#endif
 }
 
 /* Print in a certain color, but no newline.
  * Optionally, specify a background color for systems that support it. */
 void wrestd::io::printc(string text, color_t color, color_t bgColorCode ) {
+#ifdef _WIN32
 	setColor(color, bgColorCode);
 	cout << text;
 	setColor(DEFAULT, DEFAULT);
+#else
+	printf("\033[%d;%dm%s\033[m", getFGColor(color), getBGColor(bgColorCode), text.c_str());
+#endif
 }
 
 /* Wait for user to press enter, optionally printing it in a specific color. 
  * Also optionally add a background color shown on systems which support it. */
-void wrestd::io::wait(color_t messagecolor = DEFAULT, color_t bgColor ) {
+void wrestd::io::wait(color_t messagecolor, color_t bgColor ) {
+#ifdef _WIN32
 	setColor(messagecolor, bgColor);
 	cout << "\nPress ENTER to continue...";
+#else
+	printf("\n\033[%d;%dmPress ENTER to continue...\033[m", getFGColor(messagecolor), getBGColor(bgColor));
+#endif
 	// this is why i had to undef max, because windows defines it in some header file somewhere
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+#ifdef _WIN32
 	setColor(DEFAULT, DEFAULT);
+#endif
 }
 
 /* Wait for user to press enter, display custom message, optionally specifying a color for the message. 
  * Optionally specify background color for supported systems. */
-void wrestd::io::wait(string message, color_t messagecolor = DEFAULT, color_t bgColorCode ) {
+void wrestd::io::wait(string message, color_t messagecolor, color_t bgColorCode ) {
+#ifdef _WIN32
 	setColor(messagecolor, bgColorCode);
 	cout << "\n" << message;
+#else
+	printf("\n\033[%d;%dm%s\033[m", getFGColor(messagecolor), getBGColor(bgColorCode), message.c_str());
+#endif
 	// this is why i had to undef max, because windows defines it in some header file somewhere
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+#ifdef _WIN32
 	setColor(DEFAULT, DEFAULT);
+#endif
 }
 
 /* Return true or false based on the existance of a file. */
