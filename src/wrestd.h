@@ -10,6 +10,9 @@ This software is licensed under the Apache license. See LICENSE file to learn mo
 This is a collection of my frequently used classes and methods.
 ----------------------------------------------*/
 
+#ifndef WRESTD_H
+#define WRESTD_H
+
 /* Common imports, or things required for the classes to work. */
 #include <stdio.h>
 #include <string>
@@ -94,3 +97,5 @@ namespace wrestd {
 		}
 	};
 }
+
+#endif
