@@ -18,6 +18,7 @@ This is a collection of my frequently used classes and methods.
 #include <string>
 #include <thread>
 #include <chrono>
+#include <algorithm>
 
 // used to detect things later on, IIRC. Just copied it from the old IOManager.h file, pretty sure it's used somewhere.
 #ifdef _WIN32
@@ -94,6 +95,15 @@ namespace wrestd {
 			high_resolution_clock::time_point t2 = high_resolution_clock::now();
 			duration<RType> timespan = duration_cast<duration<RType> >(t2-t1);
 			return (RType)timespan.count() * (RType)seconds::period::num/(RType)seconds::period::den;
+		}
+	};
+
+	/* Handles anything related to collections. */
+	namespace collections {
+		// todo: make this work for any type of collection so long as the algorithms work on it
+		template<class T>
+		bool v_contains(vector<T>& v, T item) {
+			return std::find(v.begin(), v.end(), item) != v.end();
 		}
 	};
 }
