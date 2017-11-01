@@ -1,5 +1,4 @@
 #include "wrestd.h"
-#include <string>
 
 /* Count occurrences of substring 'substr' in std::string 'str'. */
 int wrestd::strings::substr_count(std::string str, std::string substr, bool overlap=true) {

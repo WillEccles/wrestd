@@ -23,6 +23,12 @@
 #undef max
 #endif
 
+#ifdef _WIN32
+#define ISWINDOWS 1
+#else
+#define ISWINDOWS 0
+#endif
+
 using namespace std;
 using namespace wrestd::io;
 
