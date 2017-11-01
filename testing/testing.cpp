@@ -1,11 +1,11 @@
 #include <iostream>
 #include <string>
-#include <io.h>
+#include <wrestd/io.h>
 
 using namespace wrestd::io;
 
 int main(void) {
-	clear();
+	//clear();
 	printlc("This is GREEN", GREEN);
 	printlc("This is DARKGREEN", DARKGREEN);
 	printlc("This is RED", RED);
