@@ -6,7 +6,7 @@ HDIR=$(OUTDIR)/headers/wrestd
 CPPFLAGS=-I /src -std=c++14 -fPIC -c
 
 # add any .cpp files to this list, OBJS converts them all to .o for later use
-SRCS=io.cpp strings.cpp
+SRCS=io.cpp strings.cpp stack.cpp queue.cpp
 OBJS=$(addprefix $(OBJDIR)/,$(subst .cpp,.o,$(SRCS)))
 
 OUTLIB=$(LIBDIR)/libwrestd.so
