@@ -2,27 +2,19 @@
 #define STACK_H
 
 #include "collections.h"
+#include "nodes.h"
 #include <iostream>
 #include <vector>
 #include <memory> // std::shared_ptr
 
+using namespace wrestd::collections;
+
 template<class T>
 class wrestd::collections::stack {
 private:
-	// the node class to be used in linked applications
-	template <class nT = T>
-	class node {
-		private:
-			nT _value;
-			std::shared_ptr<node<nT>> _next;
-		public:
-			node(nT value): _value(value) { _next = nullptr; };
-			node(nT value, std::shared_ptr<node<nT>> next): _value(value), _next(next) {};
-			nT getValue() { return _value; };
-			void setValue(nT newValue) { _value = newValue; };
-			std::shared_ptr<node<nT>> getNext() { return _next; };
-	};
-	std::shared_ptr<node<T>> _top; // shouldn't change or we lose the list
+	// the snode class to be used in linked applications
+	typedef single_link_node<T> snode;
+	std::shared_ptr<snode> _top; // shouldn't change or we lose the list
 	size_t _numItems = 0;
 public:
 	// constructors

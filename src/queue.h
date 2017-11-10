@@ -2,29 +2,20 @@
 #define QUEUE_H
 
 #include "collections.h"
+#include "nodes.h"
 #include <iostream>
 #include <memory> // std::shared_ptr
+
+using wrestd::collections::single_link_node;
 
 template <class T>
 class wrestd::collections::queue {
 	private:
-		// the node class to be used in the queue
-		template <class nT = T>
-			class node {
-				private:
-					nT _value;
-					std::shared_ptr<node<nT>> _next;
-				public:
-					node(nT value): _value(value) { _next = 0; };
-					node(nT value, std::shared_ptr<node<nT>> next): _value(value), _next(next) {};
-					nT getValue() { return _value; };
-					void setValue(nT newValue) { _value = newValue; };
-					std::shared_ptr<node<nT>> getNext() { return _next; };
-					void setNext(std::shared_ptr<node<nT>> next) { _next = next; };
-			};
+		// the qnode class to be used in the queue
+		typedef single_link_node<T> qnode;
 
-		std::shared_ptr<node<T>> _front; // shouldn't change or we lose the list
-		std::shared_ptr<node<T>> _back; // since we wanna be able to get to the end of the list quickly
+		std::shared_ptr<qnode> _front; // shouldn't change or we lose the list
+		std::shared_ptr<qnode> _back; // since we wanna be able to get to the end of the list quickly
 		size_t _numItems = 0;
 	public:
 		// constructors

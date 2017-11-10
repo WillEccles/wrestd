@@ -11,7 +11,7 @@ stack<T>::stack() {
 // overloaded constructor
 template<class T>
 stack<T>::stack(T firstVal) {
-	_top(new node<T>(firstVal));
+	_top(new snode(firstVal));
 	_numItems = 1;
 }
 
@@ -25,10 +25,10 @@ stack<T>::~stack() {
 template<class T>
 void stack<T>::push(T val) {
 	if (_top == nullptr) {
-		_top = std::shared_ptr<node<T>>(new node<T>(val));
+		_top = std::shared_ptr<snode>(new snode(val));
 	} else {
-		std::shared_ptr<node<T>> newNext = _top;
-		_top = std::shared_ptr<node<T>>(new node<T>(val, newNext));
+		std::shared_ptr<snode> newNext = _top;
+		_top = std::shared_ptr<snode>(new snode(val, newNext));
 	}
 	_numItems++;
 }
@@ -39,8 +39,8 @@ T stack<T>::pop() {
 	if (_top == nullptr) {
 		return static_cast<T>(NULL);
 	} else {
-		std::shared_ptr<node<T>> old = _top;
-		_top = _top->getNext();
+		std::shared_ptr<snode> old = _top;
+		_top = _top->getChild();
 		_numItems--;
 		T rval = old->getValue();
 		return rval;
@@ -50,9 +50,9 @@ T stack<T>::pop() {
 // remove all the items from the stack
 template<class T>
 void stack<T>::popAll() {
-	std::shared_ptr<node<T>> curr = _top;
+	std::shared_ptr<snode> curr = _top;
 	while (curr != nullptr) {
-		std::shared_ptr<node<T>> next = curr->getNext();
+		std::shared_ptr<snode> next = curr->getChild();
 		curr = next;
 	}
 	_top = nullptr;
@@ -71,10 +71,10 @@ void stack<T>::print() {
 	if (isEmpty()) {
 		std::cout << "Stack is empty." << std::endl;
 	} else {
-		std::shared_ptr<node<T>> curr = _top;
+		std::shared_ptr<snode> curr = _top;
 		while (curr != nullptr) {
 			std::cout << curr->getValue() << ' ';
-			curr = curr->getNext();
+			curr = curr->getChild();
 		}
 		std::cout << std::endl;
 	}
@@ -83,9 +83,9 @@ void stack<T>::print() {
 // if you want to loop through and apply an operation to each value in the stack
 template<class T>
 void stack<T>::doForEach(T (*op)(T)) {
-	std::shared_ptr<node<T>> curr = _top;
+	std::shared_ptr<snode> curr = _top;
 	while (curr != nullptr) {
 		curr->setValue(op(curr->getValue()));
-		curr = curr->getNext();
+		curr = curr->getChild();
 	}
 };

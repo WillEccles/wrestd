@@ -6,13 +6,10 @@
 
 namespace wrestd {
 	namespace collections {
-		// C++11 Smart Pointers-based stack implementation
 		template<class T>
-			class stack;
-
-		// C++11 Smart Pointer-based queue implementation
+		class queue;
 		template<class T>
-			class queue;
+		class stack;
 
 		// todo: make this work for any type of collection so long as the algorithms work on it
 		template<class T>

@@ -5,5 +5,8 @@
 #include "io.h"
 #include "collections.h"
 #include "threading.h"
+#include "stack.h"
+#include "queue.h"
+#include "nodes.h"
 
 #endif

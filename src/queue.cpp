@@ -12,7 +12,7 @@ queue<T>::queue() {
 // overloaded constructor
 template<class T>
 queue<T>::queue(T firstVal) {
-	_front = std::shared_ptr<node<T>>(new node<T>(firstVal, _back));
+	_front = std::shared_ptr<qnode>(new qnode(firstVal, _back));
 	_numItems = 1;
 }
 
@@ -20,13 +20,13 @@ queue<T>::queue(T firstVal) {
 template<class T>
 void queue<T>::enqueue(T val) {
 	if (_front == nullptr) {
-		_front = std::shared_ptr<node<T>>(new node<T>(val, _back));
+		_front = std::shared_ptr<qnode>(new qnode(val, _back));
 	} else {
 		if (_back == nullptr) {
-			_back = std::shared_ptr<node<T>>(new node<T>(val, nullptr));
+			_back = std::shared_ptr<qnode>(new qnode(val, nullptr));
 			_front->setNext(_back);
 		} else {
-			std::shared_ptr<node<T>> newNext(new node<T>(val, nullptr));
+			std::shared_ptr<qnode> newNext(new qnode(val, nullptr));
 			_back->setNext(newNext);
 			_back = _back->getNext();
 		}
@@ -50,9 +50,9 @@ T queue<T>::dequeue() {
 // remove all the items from the queue
 template<class T>
 void queue<T>::dequeueAll() {
-	std::shared_ptr<node<T>> curr = _front;
+	std::shared_ptr<qnode> curr = _front;
 	while (curr != nullptr) {
-		std::shared_ptr<node<T>> next = curr->getNext();
+		std::shared_ptr<qnode> next = curr->getNext();
 		delete curr;
 		curr = next;
 	}
@@ -72,7 +72,7 @@ void queue<T>::print() {
 	if (isEmpty()) {
 		std::cout << "Queue is empty." << std::endl;
 	} else {
-		std::shared_ptr<node<T>> curr = _front;
+		std::shared_ptr<qnode> curr = _front;
 		while (curr != nullptr) {
 			std::cout << curr->getValue() << ' ';
 			curr = curr->getNext();
@@ -84,7 +84,7 @@ void queue<T>::print() {
 // if you want to loop through and apply an operation to each value in the queue
 template<class T>
 void queue<T>::doForEach(T (*op)(T)) {
-	std::shared_ptr<node<T>> curr = _front;
+	std::shared_ptr<qnode> curr = _front;
 	while (curr != nullptr) {
 		curr->setValue(op(curr->getValue()));
 		curr = curr->getNext();
