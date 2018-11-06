@@ -1,11 +1,8 @@
 OUTPUT=testing.out
 CPPFLAGS=-std=c++14
-LINKFLAGS=-L../output/ -lwrestd -I../output/include/
+LINKFLAGS=-I../src/
 
-all: $(OUTPUT) ../output
-
-../output:
-	@cd ../; make
+all: $(OUTPUT)
 
 $(OUTPUT): testing.cpp
 	g++ $(LINKFLAGS) testing.cpp -o $(OUTPUT) $(CPPFLAGS)

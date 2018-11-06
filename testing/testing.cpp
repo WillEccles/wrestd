@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <wrestd/stack.h>
+#include "stack.h"
 
 using namespace wrestd::collections;
 
