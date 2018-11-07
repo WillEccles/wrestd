@@ -1,6 +1,6 @@
 OUTPUT=testing.out
 CPPFLAGS=-std=c++14
-LINKFLAGS=-I../src/
+LINKFLAGS=-I../include/
 
 all: $(OUTPUT)
 
