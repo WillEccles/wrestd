@@ -37,11 +37,11 @@ namespace wrestd {
 			// if the thread max is > than the length of the vector (in which case this is FAR less efficient than using one thread),
 			// use only the length worth of threads
 			if (max_threads > v.size()) tcount = v.size();
-			else if (max_threads <= v.size()) tcount = max_threads; // this is not exact, use mod later to fix this
+			else if (max_threads <= v.size()) tcount = max_threads;
 
 			std::vector<std::thread> threads(tcount);
-			std::size_t iterations_per_thread = v.size()/tcount;
-			
+			std::size_t iterations_per_thread = v.size() / tcount; // this is not exact, use mod later to fix this
+
 			for (std::size_t t = 0; t < tcount; t++) { 
 				std::size_t f = t * iterations_per_thread; // index of first work item for this thread
 				std::size_t e = f + iterations_per_thread - 1; // index of last work item for this thread

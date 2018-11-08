@@ -1,11 +1,15 @@
-OUTPUT=testing.out
-CPPFLAGS=-std=c++14
+CPPFLAGS=-std=c++14 -O0
 LINKFLAGS=-I../include/
 
-all: $(OUTPUT)
+all: thread queue
+thread: thread_testing.out
+queue: queue_testing.out
 
-$(OUTPUT): testing.cpp
-	g++ $(LINKFLAGS) testing.cpp -o $(OUTPUT) $(CPPFLAGS)
+thread_testing.out: thread_testing.cpp
+	g++ $(LINKFLAGS) $< -o $@ $(CPPFLAGS)
+
+queue_testing.out: queue_testing.cpp
+	g++ $(LINKFLAGS) $< -o $@ $(CPPFLAGS)
 
 clean:
-	rm $(OUTPUT)
+	rm *.out

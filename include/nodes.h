@@ -24,7 +24,7 @@ namespace wrestd {
 			// has 1 value (of type T)
 			// keeps a reference to 1 child
 			template<class T>
-				class single_link_node : protected node<T, single_link_node<T>> {
+				class single_link_node : public node<T, single_link_node<T>> {
 					public:
 						single_link_node(T value,
 								std::shared_ptr<single_link_node<T>> child = 0): node<T, single_link_node<T>>(value) {

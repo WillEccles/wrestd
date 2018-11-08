@@ -239,4 +239,4 @@ _Pvt_Extensions
 # VSCode
 .vscode/
 
-testing/testing.out
+testing/*.out
