@@ -1,8 +1,7 @@
 #ifndef WRESTD_STACK_H
 #define WRESTD_STACK_H
 
-#include "collections.h"
-#include "nodes.h"
+#include "wrenodes.h"
 #include <iostream>
 #include <memory> // std::shared_ptr
 

@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <thread>
-#include "queue.h"
+#include "wrequeue.h"
 #include <chrono>
 
 int main(void) {

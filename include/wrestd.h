@@ -1,12 +1,11 @@
 #ifndef WRESTD_H
 #define WRESTD_H
 
-#include "strings.h"
-#include "io.h"
-#include "collections.h"
-#include "threading.h"
-#include "stack.h"
-#include "queue.h"
-#include "nodes.h"
+#include "wrestrings.h"
+#include "wreio.h"
+#include "wrethreading.h"
+#include "wrestack.h"
+#include "wrequeue.h"
+#include "wrenodes.h"
 
 #endif

@@ -31,6 +31,8 @@ namespace wrestd {
 			// threadcount
 			std::size_t tcount;
 
+			if (max_threads == 0) max_threads = std::thread::hardware_concurrency();
+
 			// check if the user has put in more threads than they can handle, and if so, limit to hardware max.
 			if (max_threads > std::thread::hardware_concurrency()) max_threads = std::thread::hardware_concurrency();
 

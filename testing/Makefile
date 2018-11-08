@@ -1,15 +1,13 @@
-CPPFLAGS=-std=c++14 -O0
+CPPFLAGS=-std=c++14 -O0 # no optimizations because this is all for debugging/testing
 LINKFLAGS=-I../include/
 
-all: thread queue
+all: thread queue util
 thread: thread_testing.out
 queue: queue_testing.out
+util: util_testing.out
 
-thread_testing.out: thread_testing.cpp
-	g++ $(LINKFLAGS) $< -o $@ $(CPPFLAGS)
-
-queue_testing.out: queue_testing.cpp
-	g++ $(LINKFLAGS) $< -o $@ $(CPPFLAGS)
+%.out: %.cpp
+	$(CXX) $(LINKFLAGS) $< -o $@ $(CPPFLAGS)
 
 clean:
 	rm *.out
