@@ -1,9 +1,8 @@
 CPPFLAGS=-std=c++14 -O0 # no optimizations because this is all for debugging/testing
 LINKFLAGS=-I../include/
 
-all: thread queue util string
+all: thread util string
 thread: thread_testing.out
-queue: queue_testing.out
 util: util_testing.out
 string: string_testing.out
 

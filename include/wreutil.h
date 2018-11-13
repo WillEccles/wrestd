@@ -25,6 +25,7 @@ namespace wrestd {
 		};
 
 		// swap two integral values in-place, using no extra memory (no temporary value)
+		// this is very efficient for algorithms, etc.
 		// using this on non-integral types will result in some fun things so don't do that
 		template<typename T>
 		void in_place_swap(T &i1, T &i2) {

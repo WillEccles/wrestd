@@ -3,7 +3,6 @@
 
 #include <string>
 #include <random>
-#include <set>
 
 namespace wrestd {
 	// A collection of functions that help with string operations.
