@@ -2,6 +2,8 @@
 #define STRINGS_H
 
 #include <string>
+#include <random>
+#include <set>
 
 namespace wrestd {
 	// A collection of functions that help with string operations.
@@ -17,6 +19,9 @@ namespace wrestd {
 
 		// Uppercase a string.
 		std::string to_upper(std::string);
+
+		// Generate a random string of a given length from a set of characters.
+		std::string rand_str(std::string, std::size_t);
 	};
 };
 
@@ -104,6 +109,20 @@ std::string wrestd::strings::to_upper(std::string str)
 			_str[i] = (char)(_str[i] - 0x20);
 
 	return _str;
+}
+
+// Generate a string of a given length from a set of characters.
+std::string wrestd::strings::rand_str(std::string chars, std::size_t length) {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<std::size_t> dist(0, chars.length());
+
+	std::string out(length, '\0');
+	for (std::size_t i = 0; i < length; i++) {
+		out[i] = chars[dist(gen)];
+	}
+
+	return out;
 }
 
 #endif
