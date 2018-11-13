@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <vector>
+#include <random>
 
 namespace wrestd {
 	namespace util {
@@ -36,6 +37,15 @@ namespace wrestd {
 		template <class T>
 		bool v_contains(std::vector<T> &v, T item) {
 			return std::find(v.begin(), v.end(), item) != v.end();
+		};
+
+		// generate random integral type in range [min, max]
+		template <typename numType = int>
+		numType rand_in_range(numType min, numType max) {
+			std::random_device rd;
+			std::mt19937 gen(rd());
+			std::uniform_int_distribution<numType> dist(min, max);
+			return dist(gen);
 		};
 	};
 };
