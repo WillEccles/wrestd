@@ -3,6 +3,7 @@
 
 #include <string>
 #include <random>
+#include <map>
 
 namespace wrestd {
 	// A collection of functions that help with string operations.
@@ -21,6 +22,14 @@ namespace wrestd {
 
 		// Generate a random string of a given length from a set of characters.
 		std::string rand_str(std::string, std::size_t);
+
+		// Return the phonetic alphabet representation of a character in a the NATO alphabet.
+		std::string to_phonetic(char);
+
+		// Return the phonetic version of the given string.
+		std::string to_phonetic(std::string&);
+
+		const static std::map<char, std::string> NATO_ALPHABET = { {'A', "Alfa"}, {'B', "Bravo"}, {'C', "Charlie"}, {'D', "Delta"}, {'E', "Echo"}, {'F', "Foxtrot"}, {'G', "Golf"}, {'H', "Hotel"}, {'I', "India"}, {'J', "Juliet"}, {'K', "Kilo"}, {'L', "Lima"}, {'M', "Mike"}, {'N', "November"}, {'O', "Oscar"}, {'P', "Papa"}, {'Q', "Quebec"}, {'R', "Romeo"}, {'S', "Sierra"}, {'T', "Tango"}, {'U', "Uniform"}, {'V', "Victor"}, {'W', "Whiskey"}, {'X', "X-ray"}, {'Y', "Yankee"}, {'Z', "Zulu"}, {'a', "Alfa"}, {'b', "Bravo"}, {'c', "Charlie"}, {'d', "Delta"}, {'e', "Echo"}, {'f', "Foxtrot"}, {'g', "Golf"}, {'h', "Hotel"}, {'i', "India"}, {'j', "Juliet"}, {'k', "Kilo"}, {'l', "Lima"}, {'m', "Mike"}, {'n', "November"}, {'o', "Oscar"}, {'p', "Papa"}, {'q', "Quebec"}, {'r', "Romeo"}, {'s', "Sierra"}, {'t', "Tango"}, {'u', "Uniform"}, {'v', "Victor"}, {'w', "Whiskey"}, {'x', "X-ray"}, {'y', "Yankee"}, {'z', "Zulu"}};
 	};
 };
 
@@ -122,6 +131,30 @@ std::string wrestd::strings::rand_str(std::string chars, std::size_t length) {
 	}
 
 	return out;
+}
+
+std::string wrestd::strings::to_phonetic(char letter) {
+	if ((letter <= 'z' && letter >= 'a') || (letter <= 'Z' && letter >= 'A'))
+		return wrestd::strings::NATO_ALPHABET.at(letter);
+	else {
+		std::string s = " ";
+		s[0] = letter;
+		return s;
+	}
+}
+
+std::string wrestd::strings::to_phonetic(std::string &str) {
+	std::string rval;
+	for (std::size_t i = 0; i < str.length(); i++) {
+		if ((str[i] <= 'z' && str[i] >= 'a') || (str[i] <= 'Z' && str[i] >= 'A')) {
+			if (i > 0)
+				rval += ' ';
+			rval += wrestd::strings::to_phonetic(str[i]);
+		} else if (str[i] != ' ') {
+			rval += str[i];
+		}
+	}
+	return rval;
 }
 
 #endif

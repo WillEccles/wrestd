@@ -108,6 +108,8 @@ namespace wrestd {
 	};
 };
 
+/* Code migrated from separate CPP file, too lazy to move into namespace, so just moved definitions below declarations. */
+
 using namespace wrestd::io;
 
 int getFGColor(int color)

@@ -4,7 +4,17 @@
 #include <sstream>
 
 int main(int argc, char **argv) {
-	if (argc < 3) {
+	for (char c = 'a'; c <= 'z'; c++) {
+		std::cout << c << ": " << wrestd::strings::to_phonetic(c) << '\n';
+	}
+	for (char c = 'A'; c <= 'Z'; c++) {
+		std::cout << c << ": " << wrestd::strings::to_phonetic(c) << '\n';
+	}
+
+	std::string fox = "The quick brown fox jumped over the lazy dog.";
+	std::cout << wrestd::strings::to_phonetic(fox) << '\n';
+
+	/*if (argc < 3) {
 		std::cerr << "Usage: [executable] [chars] [length]" << std::endl;
 		return 1;
 	}
@@ -23,7 +33,7 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	std::cout << wrestd::strings::rand_str(chars, len) << std::endl;
+	std::cout << wrestd::strings::rand_str(chars, len) << std::endl;*/
 
 	return 0;
 }
