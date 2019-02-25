@@ -34,9 +34,9 @@
 
 // the following color code arrays are in the order of color_t color codes for reasy switching: color_t::black = 0, so nixcolorcodes[0] = 30, aka black
 // foreground color codes for ANSI escapes
-const int nixcolorcodes[16] = {30, 34, 32, 36, 31, 35, 33, 37, 90, 94, 92, 96, 91, 95, 93, 97};
+static const int nixcolorcodes[16] = {30, 34, 32, 36, 31, 35, 33, 37, 90, 94, 92, 96, 91, 95, 93, 97};
 // background color codes for ANSI escapes
-const int nixbgcolorcodes[16] = {40, 44, 42, 46, 41, 45, 43, 47, 100, 104, 102, 106, 101, 105, 103, 107};
+static const int nixbgcolorcodes[16] = {40, 44, 42, 46, 41, 45, 43, 47, 100, 104, 102, 106, 101, 105, 103, 107};
 
 namespace wrestd {
 	// A collection of things that help to deal with console/file IO.
@@ -186,7 +186,7 @@ void wrestd::io::clear()
 #else
 	// this is the non-windows way of doing this
 	// J clears the display, 2 means to clear the whole thing, and then cursor gets put at the top left
-	std::printf("\33c\033[2J");
+	std::printf("\033c\033[2J");
 #endif
 }
 
@@ -242,7 +242,7 @@ void wrestd::io::wait(std::string message, color_t messagecolor, color_t bgColor
 	std::cout << "\n"
 		 << message;
 #else
-	std::printf("\n\033[%d;%dm%s\033[m", getFGColor(messagecolor), getBGColor(bgColorCode), message.c_str());
+	std::printf("\n\033[%d;%dm%s\033[0m", getFGColor(messagecolor), getBGColor(bgColorCode), message.c_str());
 #endif
 	// this is why i had to undef max, because windows defines it in some header file somewhere
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -286,6 +286,8 @@ int wrestd::io::termWidth()
 
 	// otherwise return the width
 	return ws.ws_col;
+#else
+	return -1;
 #endif
 }
 
@@ -308,6 +310,8 @@ int wrestd::io::termHeight()
 
 	// return height
 	return ws.ws_row;
+#else
+	return -1;
 #endif
 }
 

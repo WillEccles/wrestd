@@ -5,5 +5,6 @@
 #include "wreio.h"
 #include "wrethreading.h"
 #include "wreutil.h"
+#include "wremath.h"
 
 #endif
