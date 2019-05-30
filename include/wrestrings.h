@@ -123,7 +123,7 @@ std::string wrestd::strings::to_upper(std::string str)
 std::string wrestd::strings::rand_str(std::string chars, std::size_t length) {
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<std::size_t> dist(0, chars.length());
+	std::uniform_int_distribution<std::size_t> dist(0, chars.length() - 1);
 
 	std::string out(length, '\0');
 	for (std::size_t i = 0; i < length; i++) {
