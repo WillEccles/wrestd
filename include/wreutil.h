@@ -4,6 +4,12 @@
 #include <algorithm>
 #include <vector>
 #include <random>
+#include <cstdio>
+#include <memory>
+#include <iostream>
+#include <stdexcept>
+#include <string>
+#include <array>
 
 namespace wrestd {
 	namespace util {
@@ -31,6 +37,25 @@ namespace wrestd {
 			std::uniform_int_distribution<numType> dist(min, max);
 			return dist(gen);
 		};
+
+#ifndef __WIN32
+		// runs a command and returns the output
+		// this likely doesn't include stderr by default, so you must manually add
+		// something like 2>&1 yourself if you want it
+		// throws a std::runtime_error if something goes wrong with popen()
+		std::string exec(const std::string& cmd) {
+			std::array<char, 128> buff;
+			std::string res;
+			std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+			if (!pipe) {
+				throw std::runtime_error("popen() failed!");
+			}
+			while (fgets(buff.data(), buff.size(), pipe.get()) != nullptr) {
+				res += buff.data();
+			}
+			return res;
+		}
+#endif
 	};
 };
 
